@@ -1,0 +1,12 @@
+[package]
+name = "llama-static-linking"
+version = "0.1.0"
+edition = "2021"
+links = "llama"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+
+[build-dependencies]
+bindgen = "0.71.0"
+pkg-config = "0.3.16"
