@@ -8,7 +8,10 @@ WORKDIR /usr/src/app
 RUN git clone --depth 1 https://github.com/ggerganov/llama.cpp
 WORKDIR /usr/src/app/llama.cpp
 
+# use CMAKE_INSTALL_LIBDIR to fix pkg-config
 RUN cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DCMAKE_C_COMPILER=clang \
     -DCMAKE_CXX_COMPILER=clang++ \
     -DLLAMA_BUILD_COMMON=OFF \
@@ -16,7 +19,7 @@ RUN cmake -B build \
     -DLLAMA_BUILD_EXAMPLES=OFF \
     -DLLAMA_BUILD_SERVER=OFF \
  && cmake --build build --config Release -j
-RUN cmake --install build --prefix /usr
+RUN cmake --install build
 
 WORKDIR /usr/src/app
 
